@@ -3,13 +3,13 @@ package guru.springframework.sfgpetclinic.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping({"/vets"})
+@RequestMapping({"/owner"})
 @Controller
-public class VetController {
+public class OwnerController {
 
     @RequestMapping({"", "/", "/index", "/index.html"})
-    public String listVets() {
-        return "vets/index";
+    public String listOwners() {
+        return "owner/index";
     }
 
 }
