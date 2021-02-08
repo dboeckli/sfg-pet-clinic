@@ -11,7 +11,7 @@ public class Vet extends Person {
     @JoinTable(name = "vet_specialities",
             joinColumns = @JoinColumn(name = "vet_id"),
             inverseJoinColumns = @JoinColumn(name = "speciality_id"))
-    Set<Speciality> specialities = new HashSet<>();;
+    Set<Speciality> specialities = new HashSet<>();
 
     public Set<Speciality> getSpecialities() {
         return specialities;
