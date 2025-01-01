@@ -18,12 +18,41 @@
     <groupId>guru.springframework</groupId>
     <artifactId>sfg-pet-clinic</artifactId>
     <version>0.0.3-SNAPSHOT</version>
-    <name>sfg-pet-clinic</name>
+
+    <name>${project.artifactId}</name>
     <description>Demo project for Spring Boot</description>
+
+    <scm>
+        <connection>scm:git:https://github.com/${organization.name}/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:https://github.com/${organization.name}/${project.artifactId}.git</developerConnection>
+        <url>https://github.com/${organization.name}/${project.artifactId}.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <java.version>11</java.version>
+
+        <organization.name>dboeckli</organization.name>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <!--
+            you need a personal access token for the dboeckli organization: generate access token on github: https://github.com/settings/apps
+            add gitHub server configuration to settings.xml file with username and password (add token there)
+            Configure maven settings of IntelliJ to use your personal settings.xml
+            -->
+            <id>github</id>
+            <url>https://maven.pkg.github.com/${organization.name}/${project.artifactId}</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
@@ -38,10 +67,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <scm>
-        <developerConnection>scm:git:https://github.com/dboeckli/sfg-pet-clinic.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
 
 </project>
