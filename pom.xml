@@ -54,6 +54,14 @@
         </repository>
     </repositories>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub dboeckli Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/${organization.name}/${project.artifactId}</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <!-- release -->
