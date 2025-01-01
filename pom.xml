@@ -3,11 +3,6 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>sfg-pet-clinic-data</module>
-        <module>sfg-pet-clinic-web</module>
-    </modules>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -21,6 +16,11 @@
 
     <name>${project.artifactId}</name>
     <description>Demo project for Spring Boot</description>
+
+    <modules>
+        <module>sfg-pet-clinic-data</module>
+        <module>sfg-pet-clinic-web</module>
+    </modules>
 
     <scm>
         <connection>scm:git:https://github.com/${organization.name}/${project.artifactId}.git</connection>
