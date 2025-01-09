@@ -10,12 +10,16 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>guru.springframework</groupId>
+    <groupId>guru.springframework.sfg-pet-clinic</groupId>
     <artifactId>sfg-pet-clinic</artifactId>
     <version>0.0.3-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>Demo project for Spring Boot</description>
+
+    <organization>
+        <name>dboeckli</name>
+    </organization>
 
     <modules>
         <module>sfg-pet-clinic-data</module>
@@ -23,16 +27,14 @@
     </modules>
 
     <scm>
-        <connection>scm:git:https://github.com/${organization.name}/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:https://github.com/${organization.name}/${project.artifactId}.git</developerConnection>
-        <url>https://github.com/${organization.name}/${project.artifactId}.git</url>
+        <connection>scm:git:https://github.com/${project.organization.name}/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:https://github.com/${project.organization.name}/${project.artifactId}.git</developerConnection>
+        <url>https://github.com/${project.organization.name}/${project.artifactId}.git</url>
         <tag>HEAD</tag>
     </scm>
 
     <properties>
         <java.version>11</java.version>
-
-        <organization.name>dboeckli</organization.name>
     </properties>
 
     <repositories>
@@ -47,7 +49,7 @@
             Configure maven settings of IntelliJ to use your personal settings.xml
             -->
             <id>github</id>
-            <url>https://maven.pkg.github.com/${organization.name}/${project.artifactId}</url>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -58,7 +60,7 @@
         <repository>
             <id>github</id>
             <name>GitHub dboeckli Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/${organization.name}/${project.artifactId}</url>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
         </repository>
     </distributionManagement>
 
