@@ -30,7 +30,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>guru.springframework</groupId>
+            <groupId>guru.springframework.sfg-pet-clinic</groupId>
             <artifactId>sfg-pet-clinic-data</artifactId>
             <version>${project.version}</version>
         </dependency>
