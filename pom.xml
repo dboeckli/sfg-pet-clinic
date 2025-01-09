@@ -27,14 +27,22 @@
     </modules>
 
     <scm>
-        <connection>scm:git:https://github.com/${project.organization.name}/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:https://github.com/${project.organization.name}/${project.artifactId}.git</developerConnection>
-        <url>https://github.com/${project.organization.name}/${project.artifactId}.git</url>
+        <connection>scm:git:https://github.com/${project.organization.name}/${repo.name}.git</connection>
+        <developerConnection>scm:git:https://github.com/${project.organization.name}/${repo.name}.git</developerConnection>
+        <url>https://github.com/${project.organization.name}/${repo.name}.git</url>
         <tag>HEAD</tag>
     </scm>
 
     <properties>
         <java.version>11</java.version>
+
+        <repo.name>sfg-pet-clinic</repo.name>
+
+        <!-- Sonar -->
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.language>java</sonar.language>
+        <jacoco.version>0.8.12</jacoco.version>
     </properties>
 
     <repositories>
@@ -49,7 +57,7 @@
             Configure maven settings of IntelliJ to use your personal settings.xml
             -->
             <id>github</id>
-            <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${repo.name}</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -60,12 +68,38 @@
         <repository>
             <id>github</id>
             <name>GitHub dboeckli Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${repo.name}</url>
         </repository>
     </distributionManagement>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <append>true</append>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jacoco-create-report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/jacoco-reports</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- release -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

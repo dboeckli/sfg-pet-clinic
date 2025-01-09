@@ -131,12 +131,10 @@ jobs:
             echo "::notice:: ### Build of Feature Branch ${BRANCH_NAME}. Version: $BRANCH_MVN_VERSION"
             mvn -B versions:set -e -DnewVersion="$BRANCH_MVN_VERSION"
           fi
-          # TODO: deploy currently is failing. reason not known
-          mvn -B -e install -s $GITHUB_WORKSPACE/settings.xml
-          #mvn -B -e -X deploy -s $GITHUB_WORKSPACE/settings.xml
+          mvn -B -e -X deploy -s $GITHUB_WORKSPACE/settings.xml
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: |
-            ./target/surefire-reports/TEST-*.xml
+            target/surefire-reports/TEST-*.xml
