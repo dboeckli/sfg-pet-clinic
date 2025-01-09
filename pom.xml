@@ -27,14 +27,15 @@
     </modules>
 
     <scm>
-        <connection>scm:git:https://github.com/${project.organization.name}/sfg-pet-clinic.git</connection>
-        <developerConnection>scm:git:https://github.com/${project.organization.name}/sfg-pet-clinic.git</developerConnection>
-        <url>https://github.com/${project.organization.name}/sfg-pet-clinic.git</url>
+        <connection>scm:git:https://github.com/${project.organization.name}/${repo.name}.git</connection>
+        <developerConnection>scm:git:https://github.com/${project.organization.name}/${repo.name}.git</developerConnection>
+        <url>https://github.com/${project.organization.name}/${repo.name}.git</url>
         <tag>HEAD</tag>
     </scm>
 
     <properties>
         <java.version>11</java.version>
+        <repo.name>sfg-pet-clinic</repo.name>
     </properties>
 
     <repositories>
@@ -49,7 +50,7 @@
             Configure maven settings of IntelliJ to use your personal settings.xml
             -->
             <id>github</id>
-            <url>https://maven.pkg.github.com/${project.organization.name}/sfg-pet-clinic</url>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${repo.name}</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -60,7 +61,7 @@
         <repository>
             <id>github</id>
             <name>GitHub dboeckli Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/${project.organization.name}/sfg-pet-clinic</url>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${repo.name}</url>
         </repository>
     </distributionManagement>
 
