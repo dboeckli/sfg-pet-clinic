@@ -7,7 +7,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>guru.springframework.sfg-pet-clinic-web</groupId>
     <artifactId>sfg-pet-clinic-web</artifactId>
     <name>${project.artifactId}</name>
 
@@ -31,7 +30,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>guru.springframework.sfg-pet-clinic-data</groupId>
+            <groupId>guru.springframework.sfg-pet-clinic</groupId>
             <artifactId>sfg-pet-clinic-data</artifactId>
             <version>${project.version}</version>
         </dependency>
