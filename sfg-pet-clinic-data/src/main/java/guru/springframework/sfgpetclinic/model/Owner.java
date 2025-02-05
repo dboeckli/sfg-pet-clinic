@@ -1,9 +1,11 @@
 package guru.springframework.sfgpetclinic.model;
 
-import lombok.*;
-import org.springframework.context.annotation.Bean;
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
