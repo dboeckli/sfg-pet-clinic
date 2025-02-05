@@ -217,7 +217,7 @@ jobs:
           set -o errexit     # abort on nonzero exit status
           
           # Check if required parameters are set
-          required_params=("SONAR_TOKEN")
+          required_params=("SONAR_TOKEN" "ORGANIZATION" "ARTIFACT_ID" "BRANCH_NAME")
           for param in "${required_params[@]}"; do
             if [ -z "${!param}" ]; then
               echo "::error::Required parameter $param is not set"
