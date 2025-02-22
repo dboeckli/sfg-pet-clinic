@@ -24,7 +24,7 @@
         When upgrading, update wro.xml as well.
         <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
         -->
-        <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
+        <webjars-bootstrap.version>3.4.1</webjars-bootstrap.version>
         <webjars-jquery-ui.version>1.14.1</webjars-jquery-ui.version>
         <webjars-jquery.version>3.7.1</webjars-jquery.version>
         <wro4j.version>2.1.1</wro4j.version>
