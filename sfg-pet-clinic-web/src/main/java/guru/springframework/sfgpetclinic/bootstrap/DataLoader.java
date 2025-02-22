@@ -2,12 +2,14 @@ package guru.springframework.sfgpetclinic.bootstrap;
 
 import guru.springframework.sfgpetclinic.model.*;
 import guru.springframework.sfgpetclinic.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Component
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
@@ -34,12 +36,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        if (petTypeService.findAll().size() == 0) {
+        if (petTypeService.findAll().isEmpty()) {
             loadData();
         }
-
-
     }
 
     private void loadData() {
@@ -51,6 +50,8 @@ public class DataLoader implements CommandLineRunner {
         dog.setName("Cat");
         PetType savedCat = petTypeService.save(cat);
 
+        log.info("petType intialized: {}", petTypeService.findAll().size());
+
         Speciality radiology = new Speciality();
         radiology.setDescription("radiology");
         Speciality savedRadiology = specialityService.save(radiology);
@@ -61,7 +62,9 @@ public class DataLoader implements CommandLineRunner {
 
         Speciality dentistry = new Speciality();
         dentistry.setDescription("dentistry");
-        Speciality saveddDentistry = specialityService.save(dentistry);
+        specialityService.save(dentistry);
+
+        log.info("speciality intialized: {}", specialityService.findAll().size());
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Dominique");
@@ -86,6 +89,8 @@ public class DataLoader implements CommandLineRunner {
         ruedi.setTelephone("0449151997");
         ownerService.save(ruedi);
 
+        log.info("owners intialized: {}", ownerService.findAll().size());
+
         Visit catVisit = new Visit();
         catVisit.setPet(roscoePet);
         catVisit.setDate(LocalDate.now());
@@ -97,8 +102,6 @@ public class DataLoader implements CommandLineRunner {
         fionaPet.setOwner(ruedi);
         fionaPet.setPetType(savedCat);
         ruedi.getPets().add(fionaPet);
-
-        System.out.println("owners intialized.....");
 
         Vet vet1 = new Vet();
         vet1.setFirstName("Meister");
@@ -112,6 +115,6 @@ public class DataLoader implements CommandLineRunner {
         vet2.getSpecialities().add(savedSurgery);
         vetService.save(vet2);
 
-        System.out.println("vets intialized.....");
+        log.info("vets intialized: {}", vetService.findAll().size());
     }
 }
