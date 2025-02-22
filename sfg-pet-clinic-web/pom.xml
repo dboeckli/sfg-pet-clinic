@@ -19,16 +19,15 @@
         <buildNumber>${git.commit.id.abbrev}</buildNumber>
         
         <!-- Web dependencies -->
-        <!-- TODO: use latest
-        <webjars-bootstrap.version>4.6.0</webjars-bootstrap.version>
-        <webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
-        <webjars-jquery.version>3.5.1</webjars-jquery.version>
-        <wro4j.version>1.10.1</wro4j.version>
+        <!-- TODO: 
+        use latest. Upgrading is breaking the gui. Check developer console which indicates that the petclinic.css is not found.
+        When upgrading, update wro.xml as well.
+        <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
         -->
         <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
-        <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
-        <webjars-jquery.version>2.2.4</webjars-jquery.version>
-        <wro4j.version>1.8.0</wro4j.version>
+        <webjars-jquery-ui.version>1.14.1</webjars-jquery-ui.version>
+        <webjars-jquery.version>3.7.1</webjars-jquery.version>
+        <wro4j.version>2.1.1</wro4j.version>
     </properties>
 
     <profiles>
