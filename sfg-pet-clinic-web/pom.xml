@@ -22,8 +22,7 @@
         <!-- Web dependencies -->
         <libsass.version>0.2.29</libsass.version>
         <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
-        <webjars-jquery-ui.version>1.14.1</webjars-jquery-ui.version>
-        <webjars-jquery.version>3.7.1</webjars-jquery.version>
+        <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
     </properties>
 
     <profiles>
@@ -87,14 +86,9 @@
             <artifactId>webjars-locator-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${webjars-jquery.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>${webjars-jquery-ui.version}</version>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${webjars-font-awesome.version}</version>
         </dependency>
         <!-- end of webjars -->
 
