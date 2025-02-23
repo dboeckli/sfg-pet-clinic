@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>guru.springframework.sfg-pet-clinic</groupId>
         <artifactId>sfg-pet-clinic</artifactId>
@@ -17,14 +18,14 @@
 
         <!--suppress UnresolvedMavenProperty -->
         <buildNumber>${git.commit.id.abbrev}</buildNumber>
-        
+
         <!-- Web dependencies -->
         <!-- TODO: 
         use latest. Upgrading is breaking the gui. Check developer console which indicates that the petclinic.css is not found.
         When upgrading, update wro.xml as well.
         <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
         -->
-        <webjars-bootstrap.version>3.4.1</webjars-bootstrap.version>
+        <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
         <webjars-jquery-ui.version>1.14.1</webjars-jquery-ui.version>
         <webjars-jquery.version>3.7.1</webjars-jquery.version>
         <wro4j.version>2.1.1</wro4j.version>
@@ -46,12 +47,29 @@
         </profile>
     </profiles>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.webjars.npm</groupId>
+                <artifactId>minimatch</artifactId>
+                <version>3.1.2</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
     <dependencies>
+
 
         <dependency>
             <groupId>guru.springframework.sfg-pet-clinic</groupId>
             <artifactId>sfg-pet-clinic-data</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -63,11 +81,42 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
+        <!-- webjars -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjars-bootstrap.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjars-jquery.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-ui</artifactId>
+            <version>${webjars-jquery-ui.version}</version>
+        </dependency>
+
+        <!-- wro4j -->
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-extensions</artifactId>
+            <version>${wro4j.version}</version>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>com.google.closure</groupId>
+            <artifactId>compiler</artifactId>
+            <version>20100917</version>
+        </dependency>
+        -->
+        <!-- end of webjars -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -89,28 +138,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- webjars -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${webjars-jquery.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>${webjars-jquery-ui.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>${webjars-bootstrap.version}</version>
-        </dependency>
-        <!-- end of webjars -->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -127,7 +154,6 @@
 
     <build>
         <plugins>
-
             <!-- we need a port to be able to start the local profile -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -163,6 +189,56 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <!--
+            <plugin>
+                <groupId>ro.isdc.wro4j</groupId>
+                <artifactId>wro4j-maven-plugin</artifactId>
+                <version>${wro4j.version}</version>
+                <configuration>
+                    <detail>true</detail>
+                    <minimize>false</minimize>
+                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+                    <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
+                    <cssDestinationFolder>${project.build.directory}/classes/static/resources/css</cssDestinationFolder>
+                    <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
+                    <contextFolder>${basedir}/src/main/scss</contextFolder>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-css</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>bootstrap</artifactId>
+                        <version>${webjars-bootstrap.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>ro.isdc.wro4j</groupId>
+                        <artifactId>wro4j-extensions</artifactId>
+                        <version>${wro4j.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.webjars.npm</groupId>
+                        <artifactId>minimatch</artifactId>
+                        <version>3.1.2</version>
+                    </dependency>
+                    
+                    <dependency>
+                        <groupId>org.mockito</groupId>
+                        <artifactId>mockito-core</artifactId>
+                        <version>${mockito.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            -->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -293,39 +369,8 @@
                     </execution>
                 </executions>
             </plugin>
-            
-            <plugin>
-                <groupId>ro.isdc.wro4j</groupId>
-                <artifactId>wro4j-maven-plugin</artifactId>
-                <version>${wro4j.version}</version>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
-                    <cssDestinationFolder>${project.build.directory}/classes/static/resources/css</cssDestinationFolder>
-                    <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
-                    <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
-                    <contextFolder>${basedir}/src/main/less</contextFolder>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.webjars</groupId>
-                        <artifactId>bootstrap</artifactId>
-                        <version>${webjars-bootstrap.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.mockito</groupId>
-                        <artifactId>mockito-core</artifactId>
-                        <version>${mockito.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+
+
         </plugins>
     </build>
 

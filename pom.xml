@@ -69,6 +69,14 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>scm-manager</id>
+            <url>https://packages.scm-manager.org/repository/thirdparty/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        
     </repositories>
 
     <distributionManagement>
