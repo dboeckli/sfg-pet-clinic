@@ -20,15 +20,10 @@
         <buildNumber>${git.commit.id.abbrev}</buildNumber>
 
         <!-- Web dependencies -->
-        <!-- TODO: 
-        use latest. Upgrading is breaking the gui. Check developer console which indicates that the petclinic.css is not found.
-        When upgrading, update wro.xml as well.
-        <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
-        -->
+        <libsass.version>0.2.29</libsass.version>
         <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
         <webjars-jquery-ui.version>1.14.1</webjars-jquery-ui.version>
         <webjars-jquery.version>3.7.1</webjars-jquery.version>
-        <wro4j.version>2.1.1</wro4j.version>
     </properties>
 
     <profiles>
@@ -101,21 +96,6 @@
             <artifactId>jquery-ui</artifactId>
             <version>${webjars-jquery-ui.version}</version>
         </dependency>
-
-        <!-- wro4j -->
-        <dependency>
-            <groupId>ro.isdc.wro4j</groupId>
-            <artifactId>wro4j-extensions</artifactId>
-            <version>${wro4j.version}</version>
-        </dependency>
-
-        <!--
-        <dependency>
-            <groupId>com.google.closure</groupId>
-            <artifactId>compiler</artifactId>
-            <version>20100917</version>
-        </dependency>
-        -->
         <!-- end of webjars -->
 
         <dependency>
@@ -154,6 +134,49 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.webjars.npm</groupId>
+                                    <artifactId>bootstrap</artifactId>
+                                    <version>${webjars-bootstrap.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}/webjars</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>com.gitlab.haynes</groupId>
+                <artifactId>libsass-maven-plugin</artifactId>
+                <version>${libsass.version}</version>
+                <configuration>
+                    <inputPath>${basedir}/src/main/scss/</inputPath>
+                    <outputPath>${basedir}/src/main/resources/static/resources/css/</outputPath>
+                    <includePath>${project.build.directory}/webjars/META-INF/resources/webjars/bootstrap/${webjars-bootstrap.version}/scss/</includePath>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            
             <!-- we need a port to be able to start the local profile -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -189,56 +212,6 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-
-            <!--
-            <plugin>
-                <groupId>ro.isdc.wro4j</groupId>
-                <artifactId>wro4j-maven-plugin</artifactId>
-                <version>${wro4j.version}</version>
-                <configuration>
-                    <detail>true</detail>
-                    <minimize>false</minimize>
-                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
-                    <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
-                    <cssDestinationFolder>${project.build.directory}/classes/static/resources/css</cssDestinationFolder>
-                    <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
-                    <contextFolder>${basedir}/src/main/scss</contextFolder>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generate-css</id>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.webjars</groupId>
-                        <artifactId>bootstrap</artifactId>
-                        <version>${webjars-bootstrap.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>ro.isdc.wro4j</groupId>
-                        <artifactId>wro4j-extensions</artifactId>
-                        <version>${wro4j.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.webjars.npm</groupId>
-                        <artifactId>minimatch</artifactId>
-                        <version>3.1.2</version>
-                    </dependency>
-                    
-                    <dependency>
-                        <groupId>org.mockito</groupId>
-                        <artifactId>mockito-core</artifactId>
-                        <version>${mockito.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            -->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -289,6 +262,7 @@
                                 <argument>--server.port=${tomcat.http.port}</argument>
                                 <argument>--spring.cloud.kubernetes.enabled=false</argument>
                             </arguments>
+                            <!-- TODO: STOP DOES NOT WORK -->
                             <!--<jmxPort>${jmx.server.port}</jmxPort>-->
                         </configuration>
                     </execution>

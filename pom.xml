@@ -40,7 +40,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <repo.name>sfg-pet-clinic</repo.name>
-
+        
         <!-- Sonar -->
         <sonar-maven-plugin.version>5.0.0.4389</sonar-maven-plugin.version>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>

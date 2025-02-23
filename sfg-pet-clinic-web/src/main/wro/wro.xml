@@ -1,6 +1,0 @@
-<groups xmlns="http://www.isdc.ro/wro">
-    <group name="petclinic">
-        <css>webjar:bootstrap/5.3.3/scss/bootstrap.scss</css>
-        <css>/petclinic.scss</css>
-    </group>
-</groups>
