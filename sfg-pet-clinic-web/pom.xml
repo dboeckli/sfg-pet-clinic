@@ -20,7 +20,7 @@
         <buildNumber>${git.commit.id.abbrev}</buildNumber>
 
         <!-- Web dependencies -->
-        <libsass.version>0.2.29</libsass.version>
+        <libsass.version>0.3.3</libsass.version>
         <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
         <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
     </properties>
