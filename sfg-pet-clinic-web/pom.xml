@@ -258,7 +258,7 @@
                                 <argument>--spring.cloud.kubernetes.enabled=false</argument>
                             </arguments>
                             <!-- TODO: STOP DOES NOT WORK -->
-                            <!--<jmxPort>${jmx.server.port}</jmxPort>-->
+                            <jmxPort>${jmx.server.port}</jmxPort>
                         </configuration>
                     </execution>
 
