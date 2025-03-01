@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>org.webjars.npm</groupId>
                 <artifactId>minimatch</artifactId>
-                <version>9.0.5</version>
+                <version>${webjars-npm-minimatch.version}</version>
             </dependency>
         </dependencies>
 
@@ -257,7 +257,6 @@
                                 <argument>--server.port=${tomcat.http.port}</argument>
                                 <argument>--spring.cloud.kubernetes.enabled=false</argument>
                             </arguments>
-                            <!-- TODO: STOP DOES NOT WORK -->
                             <jmxPort>${jmx.server.port}</jmxPort>
                         </configuration>
                     </execution>
