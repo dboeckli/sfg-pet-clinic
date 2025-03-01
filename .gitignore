@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Generated css by libsass-maven-plugin ###
+**/sfg-pet-clinic-web/src/main/resources/static/resources/css/*.css
