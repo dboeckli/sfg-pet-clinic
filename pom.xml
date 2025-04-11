@@ -43,7 +43,7 @@
 
         <!-- Web dependencies -->
         <libsass.version>0.3.3</libsass.version>
-        <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
+        <webjars-bootstrap.version>5.3.5</webjars-bootstrap.version>
         <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
         <webjars-npm-minimatch.version>9.0.5</webjars-npm-minimatch.version>
         
