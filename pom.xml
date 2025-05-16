@@ -45,7 +45,7 @@
         <libsass.version>0.3.4</libsass.version>
         <webjars-bootstrap.version>5.3.5</webjars-bootstrap.version>
         <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
-        <webjars-npm-minimatch.version>9.0.5</webjars-npm-minimatch.version>
+        <webjars-npm-minimatch.version>10.0.1</webjars-npm-minimatch.version>
         
         <!-- Sonar -->
         <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
