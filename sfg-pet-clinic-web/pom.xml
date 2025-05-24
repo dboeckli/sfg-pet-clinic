@@ -213,10 +213,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>
-                    <layers>
-                        <enabled>true</enabled>
-                        <includeLayerTools>true</includeLayerTools>
-                    </layers>
+                    spring-boot-mav
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
