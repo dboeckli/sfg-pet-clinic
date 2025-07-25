@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [ "main", "master" ]
   schedule:
-    - cron: '5 21 * * *'
+    - cron: '5 18 * * *'
 jobs:
 
   setup:
@@ -29,13 +29,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@dboeckli'
 
       - name: Set up java 21
         uses: actions/setup-java@v4
@@ -120,7 +113,7 @@ jobs:
           echo ":maple_leaf: Original Maven version: ${{ steps.set_version.outputs.MVN_VERSION }}" >> $GITHUB_STEP_SUMMARY
           echo ":cactus: Calculated Maven Version: ${{ steps.set_version.outputs.BRANCH_MVN_VERSION }}" >> $GITHUB_STEP_SUMMARY
   
-  
+
   build:
     runs-on: ubuntu-latest
 
@@ -141,13 +134,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@dboeckli'
 
       - name: Set up java 21
         uses: actions/setup-java@v4
@@ -198,7 +184,7 @@ jobs:
           }
           EOF
 
-          echo "✅ Docker config.json added to ~/.docker/config.json"    
+          echo "✅ Docker config.json added to ~/.docker/config.json"      
 
       - name: show variables
         id: show_build_variables
@@ -220,14 +206,13 @@ jobs:
           BRANCH_NAME: ${{needs.setup.outputs.BRANCH_NAME}}
           DOCKER_USER: ${{ vars.DOCKER_USER }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -o pipefail    # don't hide errors within pipes
           set -o nounset     # abort on unbound variable
           set -o errexit     # abort on nonzero exit status
           
           # Check if required parameters are set
-          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN" "NODE_AUTH_TOKEN" "DOCKER_USER" "DOCKER_TOKEN")
+          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN")
           for param in "${required_params[@]}"; do
             if [ -z "${!param}" ]; then
               echo "::error::Required parameter $param is not set"
@@ -247,12 +232,12 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         if: failure()
         with:
-         name: failsafe-and-surefire-reports
-         path: |
-           **/target/surefire-reports/TEST-*.xml
-           **/target/failsafe-reports/TEST-*.xml
+          name: failsafe-and-surefire-reports
+          path: |
+            target/failsafe-reports/
+            target/surefire-reports/
 
-      - name: get helm version
+      - name: get helm version and namespace
         id: get_helm_version_and_namespace
         env:
           ARTIFACT_ID: ${{needs.setup.outputs.ARTIFACT_ID}}
@@ -265,12 +250,27 @@ jobs:
           echo "### helm chart version is: $HELM_CHART_VERSION"
           echo "HELM_CHART_VERSION=$HELM_CHART_VERSION" >> $GITHUB_OUTPUT
           
+          YAML_FILE="sfg-pet-clinic-web/target/helm-templated/sfg-pet-clinic-web/templates/deployment.yaml"
+          if [ -f "$YAML_FILE" ]; then
+            NAMESPACE=$(grep '^\s*namespace:' "$YAML_FILE" | awk '{print $2}' | tr -d '"')
+            if [ -z "$NAMESPACE" ]; then
+              echo "::warning::No namespace found in $YAML_FILE, using default"
+              NAMESPACE="default"
+            fi
+          else
+            echo "::error::File $YAML_FILE not found"
+            exit 1
+          fi
+          echo "### namespace is: $NAMESPACE"
+          echo "NAMESPACE=$NAMESPACE" >> $GITHUB_OUTPUT 
+          
           echo ":sailboat: Helm Chart Version: $HELM_CHART_VERSION" >> $GITHUB_STEP_SUMMARY
+          echo ":sailboat: Namespace: $NAMESPACE" >> $GITHUB_STEP_SUMMARY
 
   analyze:
     runs-on: ubuntu-latest
     needs: [ setup ]
-        
+
     permissions:
       contents: read
       packages: write
@@ -284,13 +284,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@dboeckli'
-          
       - name: Set up java 21
         uses: actions/setup-java@v4
         with:
@@ -311,14 +304,13 @@ jobs:
           BRANCH_NAME: ${{needs.setup.outputs.BRANCH_NAME}}
           DOCKER_USER: ${{ vars.DOCKER_USER }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -o pipefail    # don't hide errors within pipes
           set -o nounset     # abort on unbound variable
           set -o errexit     # abort on nonzero exit status
 
           # Check if required parameters are set
-          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN" "NODE_AUTH_TOKEN")
+          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN")
           for param in "${required_params[@]}"; do
             if [ -z "${!param}" ]; then
               echo "::error::Required parameter $param is not set"
@@ -332,15 +324,16 @@ jobs:
             echo "::notice:: ### Build of Feature Branch ${BRANCH_NAME}. Version: $BRANCH_MVN_VERSION"
             mvn -B versions:set -e -DnewVersion="$BRANCH_MVN_VERSION"
           fi
-          mvn -B -e verify -Dskip.start.stop.springboot=true -Dskip.docker.build=true -Dskip.docker.publish=true -s $GITHUB_WORKSPACE/settings.xml
+          mvn -B -e verify -Dskip.start.stop.springboot=true -Dskip.docker.build=true -Dskip.docker.publish=true -s $GITHUB_WORKSPACE/settings.xml	
+
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: |
-            **/target/surefire-reports/TEST-*.xml
-            **/target/failsafe-reports/TEST-*.xml
-      
+            ./target/surefire-reports/TEST-*.xml
+            ./target/failsafe-reports/TEST-*.xml
+
       - name: analyze
         env:
           GITHUB_ACTOR: ${{ github.actor }}
@@ -352,8 +345,7 @@ jobs:
           DOCKER_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
           ORGANIZATION: ${{needs.setup.outputs.ORGANIZATION}}
           ARTIFACT_ID: ${{needs.setup.outputs.ARTIFACT_ID}}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
         run: |
           set -o pipefail    # don't hide errors within pipes
           set -o nounset     # abort on unbound variable
@@ -392,9 +384,7 @@ jobs:
 
     steps:
       - name: Trigger Deployment
-        # TODO: ENABLE ME
-        #if: success()
-        if: false
+        if: success()
         env:
           GH_TOKEN: ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}
           BRANCH_MVN_VERSION: ${{needs.setup.outputs.BRANCH_MVN_VERSION}}
@@ -409,18 +399,10 @@ jobs:
           echo "NAMESPACE: $NAMESPACE"
           
           gh workflow run deploy-and-test-cluster.yml -R ${{ github.repository }} -r ${{ github.ref }} \
-          -f "application-name=apifirst-server" \
+          -f "application-name=sfg-pet-clinic-web" \
           -f "version=$BRANCH_MVN_VERSION" \
           -f "helm-chart-version=$HELM_CHART_VERSION" \
-          -f "namespace=apifirst-server" \
-          -f "deployed-by-build=${{ github.run_id }}" \
-          -f "deployed-by-workflow=${{ github.workflow }}"
-          
-          gh workflow run deploy-and-test-cluster.yml -R ${{ github.repository }} -r ${{ github.ref }} \
-          -f "application-name=apifirst-server-jpa" \
-          -f "version=$BRANCH_MVN_VERSION" \
-          -f "helm-chart-version=$HELM_CHART_VERSION" \
-          -f "namespace=apifirst-server-jpa" \
+          -f "namespace=$NAMESPACE" \
           -f "deployed-by-build=${{ github.run_id }}" \
           -f "deployed-by-workflow=${{ github.workflow }}"
 
