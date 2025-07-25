@@ -1,8 +1,21 @@
 # sfg-pet-clinic
 
-gui: http://localhost:8080/ or http://localhost:30080
+## Abstract
+This project is a modern implementation of the classic Spring Pet Clinic application, developed using Spring Boot 3 and Java 21. It demonstrates best practices in Java development and cloud-native deployments. The application is built with a microservice architecture, utilizing Spring Data JPA for data persistence, Spring MVC for the web interface, and Lombok for reducing boilerplate code.
 
-see: https://github.com/spring-projects/spring-petclinic.git
+Key Features:
+- Full Docker container support
+- Kubernetes deployment with Helm charts
+- Integrated monitoring through Spring Boot Actuator
+- Modern web interface using Bootstrap 5
+- CI/CD pipeline via GitHub Actions
+- Modular structure separating data and web components
+
+## Access
+GUI: http://localhost:8080/ or http://localhost:30080
+
+Based on: https://github.com/spring-projects/spring-petclinic.git
+
 
 ## Deployment with Helm
 
