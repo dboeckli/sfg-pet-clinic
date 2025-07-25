@@ -405,20 +405,12 @@ jobs:
           echo "BRANCH_MVN_VERSION: $BRANCH_MVN_VERSION"
           echo "HELM_CHART_VERSION: $HELM_CHART_VERSION"
           echo "NAMESPACE: $NAMESPACE"
-          
+
           gh workflow run deploy-and-test-cluster.yml -R ${{ github.repository }} -r ${{ github.ref }} \
-          -f "application-name=apifirst-server" \
+          -f "application-name=$ARTIFACT_ID" \
           -f "version=$BRANCH_MVN_VERSION" \
           -f "helm-chart-version=$HELM_CHART_VERSION" \
-          -f "namespace=apifirst-server" \
-          -f "deployed-by-build=${{ github.run_id }}" \
-          -f "deployed-by-workflow=${{ github.workflow }}"
-          
-          gh workflow run deploy-and-test-cluster.yml -R ${{ github.repository }} -r ${{ github.ref }} \
-          -f "application-name=apifirst-server-jpa" \
-          -f "version=$BRANCH_MVN_VERSION" \
-          -f "helm-chart-version=$HELM_CHART_VERSION" \
-          -f "namespace=apifirst-server-jpa" \
+          -f "namespace=$NAMESPACE" \
           -f "deployed-by-build=${{ github.run_id }}" \
           -f "deployed-by-workflow=${{ github.workflow }}"
 
