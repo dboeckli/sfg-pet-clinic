@@ -26,33 +26,24 @@
     },
     "kubernetes": {
         "managerFilePatterns": [
-            "/apifirst-server/k8s/.+\\.ya?ml$/",
-            "/apifirst-server/helm-charts/.+\\.ya?ml$/",
-            "/apifirst-server-jpa/k8s/.+\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/.+\\.ya?ml$/"
+            "/sfg-pet-clinic-web/k8s/.+\\.ya?ml$/",
+            "/sfg-pet-clinic-web/helm-charts/.+\\.ya?ml$/"
         ]
     },
     "helm-values": {
         "managerFilePatterns": [
-            "/apifirst-server/helm-charts/values\\.ya?ml$/",
-            "/apifirst-server/helm-charts/dependencies-values\\.ya?ml$/",
-            "/apifirst-server/helm-charts/.+/values\\.ya?ml$/",
-            "/apifirst-server/helm-charts/charts/.+/values\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/values\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/dependencies-values\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/.+/values\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/charts/.+/values\\.ya?ml$/"
+            "/sfg-pet-clinic-web/helm-charts/values\\.ya?ml$/",
+            "/sfg-pet-clinic-web/helm-charts/dependencies-values\\.ya?ml$/",
+            "/sfg-pet-clinic-web/helm-charts/.+/values\\.ya?ml$/",
+            "/sfg-pet-clinic-web/helm-charts/charts/.+/values\\.ya?ml$/"
         ]
     },
     "helmv3": {
         "managerFilePatterns": [
             "/(^|/)Chart\\.ya?ml$/",
-            "/apifirst-server/helm-charts/dependencies-Chart\\.ya?ml$/",
-            "/apifirst-server/helm-charts/Chart\\.ya?ml$/",
-            "/apifirst-server/helm-charts/charts/.+/Chart\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/dependencies-Chart\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/Chart\\.ya?ml$/",
-            "/apifirst-server-jpa/helm-charts/charts/.+/Chart\\.ya?ml$/"
+            "/sfg-pet-clinic-web/helm-charts/dependencies-Chart\\.ya?ml$/",
+            "/sfg-pet-clinic-web/helm-charts/Chart\\.ya?ml$/",
+            "/sfg-pet-clinic-web/helm-charts/charts/.+/Chart\\.ya?ml$/"
         ]
     },
     "packageRules": [
