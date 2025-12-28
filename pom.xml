@@ -57,7 +57,7 @@
         <sonar.scm.provider>git</sonar.scm.provider>
         <jacoco.version>0.8.14</jacoco.version>
 
-        <editorconfig-maven-plugin.version>0.1.17</editorconfig-maven-plugin.version>
+        <editorconfig-maven-plugin.version>0.2.0</editorconfig-maven-plugin.version>
     </properties>
 
     <repositories>
