@@ -204,16 +204,6 @@
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>create-bill-of-materials</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>makeAggregateBom</goal>
-                            <goal>makeBom</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             
             <plugin>
