@@ -337,6 +337,10 @@ jobs:
           files: |
             ./target/surefire-reports/TEST-*.xml
             ./target/failsafe-reports/TEST-*.xml
+            ./sfg-pet-clinic-data/target/failsafe-reports/
+            ./sfg-pet-clinic-data/target/surefire-reports/
+            ./sfg-pet-clinic-web/target/failsafe-reports/
+            ./sfg-pet-clinic-web/target/surefire-reports/
 
       - name: analyze
         env:
