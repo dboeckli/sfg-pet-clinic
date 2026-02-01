@@ -236,6 +236,10 @@ jobs:
           path: |
             target/failsafe-reports/
             target/surefire-reports/
+            sfg-pet-clinic-data/target/failsafe-reports/
+            sfg-pet-clinic-data/target/surefire-reports/
+            sfg-pet-clinic-web/target/failsafe-reports/
+            sfg-pet-clinic-web/target/surefire-reports/
 
       - name: get helm version and namespace
         id: get_helm_version_and_namespace
