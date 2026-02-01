@@ -18,7 +18,10 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes = OwnerSpringDataJpaServiceTest.TestConfig.class)
+@SpringBootTest(
+    classes = OwnerSpringDataJpaServiceTest.TestConfig.class,
+    properties = "spring.main.allow-bean-definition-overriding=true"
+)
 @ActiveProfiles("springdatajpa")
 @Slf4j
 class OwnerSpringDataJpaServiceTest {
