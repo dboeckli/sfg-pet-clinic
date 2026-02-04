@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class OwnerRepositoryTest {
 
-    abstract static class AbstractOwnerServiceTest {
+    abstract static class AbstractOwnerRepositoryTest {
 
         @Autowired
         OwnerRepository ownerRepository;
@@ -46,16 +46,16 @@ class OwnerRepositoryTest {
     @Nested
     @ActiveProfiles("springdatajpa")
     @DataJpaTest
-    @ContextConfiguration(classes = {AbstractOwnerServiceTest.TestConfig.class})
-    class JpaTest extends AbstractOwnerServiceTest {
+    @ContextConfiguration(classes = {AbstractOwnerRepositoryTest.TestConfig.class})
+    class JpaTest extends AbstractOwnerRepositoryTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
     @DataJpaTest
-    @ContextConfiguration(classes = {AbstractOwnerServiceTest.TestConfig.class})
-    class MapTest extends AbstractOwnerServiceTest {
+    @ContextConfiguration(classes = {AbstractOwnerRepositoryTest.TestConfig.class})
+    class MapTest extends AbstractOwnerRepositoryTest {
 
     }
 }
