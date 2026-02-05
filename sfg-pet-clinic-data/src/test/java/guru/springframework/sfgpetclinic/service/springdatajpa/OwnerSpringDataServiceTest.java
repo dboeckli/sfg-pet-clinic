@@ -1,7 +1,11 @@
 package guru.springframework.sfgpetclinic.service.springdatajpa;
 
 import guru.springframework.sfgpetclinic.model.Owner;
+import guru.springframework.sfgpetclinic.model.Pet;
+import guru.springframework.sfgpetclinic.model.PetType;
 import guru.springframework.sfgpetclinic.service.OwnerService;
+import guru.springframework.sfgpetclinic.service.PetService;
+import guru.springframework.sfgpetclinic.service.PetTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -155,6 +159,60 @@ class OwnerSpringDataServiceTest {
         properties = "spring.main.allow-bean-definition-overriding=true"
     )
     class OwnerSpringDataMapServiceTest extends AbstractOwnerSpringDataServiceTest {
+
+        @Autowired
+        PetService petService;
+
+        @Autowired
+        PetTypeService petTypeService;
+
+        @Test
+        void saveNullOwner() {
+            Owner savedOwner = ownerService.save(null);
+            assertNull(savedOwner);
+        }
+
+        @Test
+        void saveOwnerWithPets() {
+            Owner owner3 = Owner.builder()
+                .firstName("Dominique")
+                .lastName("Boeckli")
+                .address("Weinbergstrasse")
+                .city("Erlenbach")
+                .telephone("123456789")
+                .build();
+
+            Pet pet1 = Pet.builder().petType(PetType.builder().build()).build();
+            Pet pet2 = Pet.builder().petType(PetType.builder().build()).build();
+            Pet pet3 = Pet.builder().petType(PetType.builder().build()).build();
+            owner3.setPets(Set.of(pet1, pet2, pet3));
+
+            Owner savedOwner = ownerService.save(owner3);
+
+            assertNotNull(savedOwner);
+        }
+
+        @Test
+        void saveOwnerWithExistingPets() {
+            PetType petType = PetType.builder().build();
+            PetType savedPetType = petTypeService.save(petType);
+
+            Pet pet = Pet.builder().petType(savedPetType).build();
+            Pet savedPet = petService.save(pet);
+
+            Owner owner3 = Owner.builder()
+                .firstName("Dominique")
+                .lastName("Boeckli")
+                .address("Weinbergstrasse")
+                .city("Erlenbach")
+                .telephone("123456789")
+                .build();
+            owner3.setPets(Set.of(savedPet));
+
+            Owner savedOwner = ownerService.save(owner3);
+
+            assertNotNull(savedOwner);
+        }
 
     }
 
