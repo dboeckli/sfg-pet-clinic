@@ -55,7 +55,6 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.language>java</sonar.language>
         <sonar.scm.provider>git</sonar.scm.provider>
-        <!--<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>-->
         <jacoco.version>0.8.14</jacoco.version>
 
         <editorconfig-maven-plugin.version>0.2.0</editorconfig-maven-plugin.version>
