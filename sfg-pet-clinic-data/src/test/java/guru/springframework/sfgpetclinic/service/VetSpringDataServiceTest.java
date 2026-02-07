@@ -1,9 +1,7 @@
-package guru.springframework.sfgpetclinic.service.springdatajpa;
+package guru.springframework.sfgpetclinic.service;
 
 import guru.springframework.sfgpetclinic.model.Speciality;
 import guru.springframework.sfgpetclinic.model.Vet;
-import guru.springframework.sfgpetclinic.service.SpecialityService;
-import guru.springframework.sfgpetclinic.service.VetService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
