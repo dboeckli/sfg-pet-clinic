@@ -21,10 +21,10 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OwnerSpringDataServiceTest {
+class OwnerServiceTest {
 
     @Slf4j
-    abstract static class AbstractOwnerSpringDataServiceTest {
+    abstract static class AbstractOwnerServiceTest {
 
         @Autowired
         OwnerService ownerService;
@@ -136,25 +136,31 @@ class OwnerSpringDataServiceTest {
             assertEquals("Max", owner.getFirstName());
             assertEquals("Mustermann", owner.getLastName());
         }
+
+        @Test
+        void findByLastNameNotFound() {
+            Owner ownerFoundByLastName = ownerService.findByLastName("pumukel");
+            assertNull(ownerFoundByLastName);
+        }
     }
 
     @Nested
     @ActiveProfiles("springdatajpa")
     @SpringBootTest(
-        classes = AbstractOwnerSpringDataServiceTest.TestConfig.class,
+        classes = AbstractOwnerServiceTest.TestConfig.class,
         properties = "spring.main.allow-bean-definition-overriding=true"
     )
-    class OwnerSpringDataJpaServiceTest extends AbstractOwnerSpringDataServiceTest {
+    class OwnerJpaServiceTest extends AbstractOwnerServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
     @SpringBootTest(
-        classes = AbstractOwnerSpringDataServiceTest.TestConfig.class,
+        classes = AbstractOwnerServiceTest.TestConfig.class,
         properties = "spring.main.allow-bean-definition-overriding=true"
     )
-    class OwnerSpringDataMapServiceTest extends AbstractOwnerSpringDataServiceTest {
+    class OwnerMapServiceTest extends AbstractOwnerServiceTest {
 
         @Autowired
         PetService petService;

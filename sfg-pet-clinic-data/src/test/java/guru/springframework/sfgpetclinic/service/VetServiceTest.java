@@ -20,10 +20,10 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class VetSpringDataServiceTest {
+class VetServiceTest {
 
     @Slf4j
-    abstract static class AbstractVetSpringDataServiceTest {
+    abstract static class AbstractVetServiceTest {
 
         @Autowired
         VetService vetService;
@@ -151,20 +151,20 @@ class VetSpringDataServiceTest {
     @Nested
     @ActiveProfiles("springdatajpa")
     @SpringBootTest(
-        classes = AbstractVetSpringDataServiceTest.TestConfig.class,
+        classes = AbstractVetServiceTest.TestConfig.class,
         properties = "spring.main.allow-bean-definition-overriding=true"
     )
-    class VetSpringDataJpaServiceTest extends AbstractVetSpringDataServiceTest {
+    class VetJpaServiceTest extends AbstractVetServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
     @SpringBootTest(
-        classes = AbstractVetSpringDataServiceTest.TestConfig.class,
+        classes = AbstractVetServiceTest.TestConfig.class,
         properties = "spring.main.allow-bean-definition-overriding=true"
     )
-    class VetSpringDataMapServiceTest extends AbstractVetSpringDataServiceTest {
+    class VetMapServiceTest extends AbstractVetServiceTest {
 
     }
 }
