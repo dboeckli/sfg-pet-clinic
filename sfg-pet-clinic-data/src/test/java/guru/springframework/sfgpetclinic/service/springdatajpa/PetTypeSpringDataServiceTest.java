@@ -20,12 +20,6 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(
-    classes = PetTypeSpringDataServiceTest.AbstractPetTypeSpringDataServiceTest.TestConfig.class,
-    properties = "spring.main.allow-bean-definition-overriding=true"
-)
-@ActiveProfiles("springdatajpa")
-@Slf4j
 class PetTypeSpringDataServiceTest {
 
     @Slf4j
