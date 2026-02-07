@@ -139,7 +139,6 @@ class OwnerSpringDataServiceTest {
             assertEquals("Max", owner.getFirstName());
             assertEquals("Mustermann", owner.getLastName());
         }
-
     }
 
     @Nested
