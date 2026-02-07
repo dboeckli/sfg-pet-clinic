@@ -211,7 +211,7 @@ class PetSpringDataServiceTest {
         classes = AbstractPetSpringDataServiceTest.TestConfig.class,
         properties = "spring.main.allow-bean-definition-overriding=true"
     )
-    class petServiceTest extends AbstractPetSpringDataServiceTest {
+    class PetSpringDataJpaServiceTest extends AbstractPetSpringDataServiceTest {
 
     }
 
