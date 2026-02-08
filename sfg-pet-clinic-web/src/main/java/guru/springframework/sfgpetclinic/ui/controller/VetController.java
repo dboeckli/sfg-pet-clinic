@@ -1,4 +1,4 @@
-package guru.springframework.sfgpetclinic.controller;
+package guru.springframework.sfgpetclinic.ui.controller;
 
 import guru.springframework.sfgpetclinic.service.VetService;
 import org.springframework.stereotype.Controller;

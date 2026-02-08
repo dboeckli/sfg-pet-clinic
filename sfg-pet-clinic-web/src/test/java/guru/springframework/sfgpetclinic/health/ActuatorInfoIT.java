@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureMetrics
 @Slf4j
-class ActuatorInfoTest {
+class ActuatorInfoIT {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     @Autowired
