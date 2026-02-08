@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(useMainMethod = SpringBootTest.UseMainMethod.ALWAYS)
 @Slf4j
-class SfgPetClinicApplicationTests {
+class SfgPetClinicApplicationIT {
 
     @Autowired
     private ApplicationContext applicationContext;
