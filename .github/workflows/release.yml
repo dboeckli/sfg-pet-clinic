@@ -1,5 +1,8 @@
 name: Maven Release
 
+env:
+  JAVA_VERSION: 21
+
 on:
   workflow_dispatch:
 
@@ -81,7 +84,7 @@ jobs:
       - name: Set up java 21
         uses: actions/setup-java@v5
         with:
-          java-version: 21
+          java-version: ${{ env.JAVA_VERSION }}
           distribution: 'temurin'
           cache: 'maven'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml.
