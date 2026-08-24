@@ -64,6 +64,16 @@
             "enabled": false
         },
         {
+            "description": "Ignore inter-module Maven dependencies",
+            "matchDatasources": [
+                "maven"
+            ],
+            "matchPackageNames": [
+                "guru.springframework.sfg-pet-clinic:*"
+            ],
+            "enabled": false
+        },
+        {
             "matchCategories": [
                 "docker"
             ],
