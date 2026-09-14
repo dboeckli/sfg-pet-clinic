@@ -93,7 +93,7 @@ cd sfg-pet-clinic-web/target/helm/repo
 unpack
 
 ```powershell
-$file = Get-ChildItem -Filter sfg-pet-clinic-v*.tgz | Select-Object -First 1
+$file = Get-ChildItem -Filter sfg-pet-clinic-web-chart-*.tgz | Select-Object -First 1
 tar -xvf $file.Name
 ```
 
@@ -101,33 +101,33 @@ install
 
 ```powershell
 $APPLICATION_NAME = Get-ChildItem -Directory | Where-Object { $_.LastWriteTime -ge $file.LastWriteTime } | Select-Object -ExpandProperty Name
-helm upgrade --install $APPLICATION_NAME ./$APPLICATION_NAME --namespace sfg-pet-clinic --create-namespace --wait --timeout 5m --debug --render-subchart-notes
+helm upgrade --install $APPLICATION_NAME ./$APPLICATION_NAME --namespace sfg-pet-clinic-web --create-namespace --wait --timeout 5m --debug --render-subchart-notes
 ```
 
 show logs and show event
 
 ```powershell
-kubectl get pods -n sfg-pet-clinic
+kubectl get pods -n sfg-pet-clinic-web
 ```
 
 replace $POD with pods from the command above
 
 ```powershell
-kubectl logs $POD -n sfg-pet-clinic --all-containers
+kubectl logs $POD -n sfg-pet-clinic-web --all-containers
 ```
 
 Show Details and Event
 
-$POD_NAME can be: sfg-pet-clinic-mongodb, sfg-pet-clinic
+$POD_NAME can be: sfg-pet-clinic-web
 
 ```powershell
-kubectl describe pod $POD_NAME -n sfg-pet-clinic
+kubectl describe pod $POD_NAME -n sfg-pet-clinic-web
 ```
 
 Show Endpoints
 
 ```powershell
-kubectl get endpoints -n sfg-pet-clinic
+kubectl get endpoints -n sfg-pet-clinic-web
 ```
 
 status
@@ -139,19 +139,19 @@ helm status $APPLICATION_NAME --namespace sfg-pet-clinic
 test
 
 ```powershell
-helm test $APPLICATION_NAME --namespace sfg-pet-clinic --logs
+helm test $APPLICATION_NAME --namespace sfg-pet-clinic-web --logs
 ```
 
 uninstall
 
 ```powershell
-helm uninstall $APPLICATION_NAME --namespace sfg-pet-clinic
+helm uninstall $APPLICATION_NAME --namespace sfg-pet-clinic-web
 ```
 
 delete all
 
 ```powershell
-kubectl delete all --all -n sfg-pet-clinic
+kubectl delete all --all -n sfg-pet-clinic-web
 ```
 
 create busybox sidecar
@@ -160,7 +160,7 @@ create busybox sidecar
 kubectl run busybox-test --rm -it --image=busybox:1.36 --namespace=sfg-pet-clinic --command -- sh
 ```
 
-You can use the actuator rest call to verify via port 30081
+You can use the actuator rest call to verify via port 30080
 
 ## Docker
 
