@@ -29,14 +29,10 @@ class PetTypeServiceTest {
 
         @BeforeEach
         void setUp() {
-            PetType petType1 = PetType.builder()
-                .name("animal")
-                .build();
+            PetType petType1 = PetType.builder().name("animal").build();
             petTypeService.save(petType1);
 
-            PetType petType2 = PetType.builder()
-                .name("animal2")
-                .build();
+            PetType petType2 = PetType.builder().name("animal2").build();
             petTypeService.save(petType2);
         }
 
@@ -62,18 +58,14 @@ class PetTypeServiceTest {
 
         @Test
         void save() {
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
             assertNotNull(savedPetType);
         }
 
         @Test
         void delete() {
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
             assertNotNull(savedPetType);
 
@@ -85,9 +77,7 @@ class PetTypeServiceTest {
 
         @Test
         void deleteById() {
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
             assertNotNull(savedPetType);
 
@@ -103,29 +93,25 @@ class PetTypeServiceTest {
         @EnableJpaRepositories(basePackages = "guru.springframework.sfgpetclinic.repository")
         @EntityScan(basePackages = "guru.springframework.sfgpetclinic.model")
         static class TestConfig {
+
         }
 
     }
 
     @Nested
     @ActiveProfiles("springdatajpa")
-    @SpringBootTest(
-        classes = AbstractPetTypeServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractPetTypeServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class PetTypeJpaServiceTest extends AbstractPetTypeServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
-    @SpringBootTest(
-        classes = AbstractPetTypeServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractPetTypeServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class PetTypeMapServiceTest extends AbstractPetTypeServiceTest {
 
     }
-
 
 }

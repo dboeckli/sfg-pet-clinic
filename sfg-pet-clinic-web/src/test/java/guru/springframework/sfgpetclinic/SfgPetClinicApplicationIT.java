@@ -40,12 +40,10 @@ class SfgPetClinicApplicationIT {
 
     @Test
     void testDataLoad() {
-        assertAll("Data should be empty at start",
-            () -> assertEquals(2, ownerService.findAll().size()),
-            () -> assertEquals(2, vetService.findAll().size()),
-            () -> assertEquals(2, petTypeService.findAll().size()),
-            () -> assertEquals(3, specialityService.findAll().size())
-        );
+        assertAll("Data should be empty at start", () -> assertEquals(2, ownerService.findAll().size()),
+                () -> assertEquals(2, vetService.findAll().size()),
+                () -> assertEquals(2, petTypeService.findAll().size()),
+                () -> assertEquals(3, specialityService.findAll().size()));
     }
 
 }

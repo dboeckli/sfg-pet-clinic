@@ -22,11 +22,8 @@ public class DataLoader implements CommandLineRunner {
 
     private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService,
-                      VetService vetService,
-                      PetTypeService petTypeService,
-                      SpecialityService specialityService,
-                      VisitService visitService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
+            SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
@@ -117,4 +114,5 @@ public class DataLoader implements CommandLineRunner {
 
         log.info("vets intialized: {}", vetService.findAll().size());
     }
+
 }

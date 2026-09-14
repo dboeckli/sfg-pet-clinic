@@ -21,4 +21,5 @@ class IndexControllerTest {
 
         assertEquals("index", view);
     }
+
 }

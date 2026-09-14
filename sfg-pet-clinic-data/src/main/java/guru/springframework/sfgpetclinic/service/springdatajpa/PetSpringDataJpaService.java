@@ -45,4 +45,5 @@ public class PetSpringDataJpaService implements PetService {
     public void deleteById(Long id) {
         petRepository.deleteById(id);
     }
+
 }

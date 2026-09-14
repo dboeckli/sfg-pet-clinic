@@ -35,6 +35,7 @@ class OwnerServiceTest {
         @EnableJpaRepositories(basePackages = "guru.springframework.sfgpetclinic.repository")
         @EntityScan(basePackages = "guru.springframework.sfgpetclinic.model")
         static class TestConfig {
+
         }
 
         @BeforeEach
@@ -142,24 +143,21 @@ class OwnerServiceTest {
             Owner ownerFoundByLastName = ownerService.findByLastName("pumukel");
             assertNull(ownerFoundByLastName);
         }
+
     }
 
     @Nested
     @ActiveProfiles("springdatajpa")
-    @SpringBootTest(
-        classes = AbstractOwnerServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractOwnerServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class OwnerJpaServiceTest extends AbstractOwnerServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
-    @SpringBootTest(
-        classes = AbstractOwnerServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractOwnerServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class OwnerMapServiceTest extends AbstractOwnerServiceTest {
 
         @Autowired

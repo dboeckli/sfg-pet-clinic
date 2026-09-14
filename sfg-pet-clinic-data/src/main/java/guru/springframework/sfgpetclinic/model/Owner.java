@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
+// @AllArgsConstructor
 @Entity
 @Table
 public class Owner extends Person {
@@ -36,6 +36,5 @@ public class Owner extends Person {
 
     @Column(name = "telephone")
     private String telephone;
-
 
 }

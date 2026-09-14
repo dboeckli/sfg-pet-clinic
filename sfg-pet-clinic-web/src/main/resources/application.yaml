@@ -1,18 +1,18 @@
 spring:
   application:
     name: sfg-pet-clinic
-    
+
   profiles:
     active: springdatajpa
   messages:
     basename: messages/messages
-    
+
   docker:
     compose:
       enabled: false
       stop:
-        command: down  
-          
+        command: down
+
 management:
   health:
     readinessstate:

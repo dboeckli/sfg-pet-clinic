@@ -32,4 +32,5 @@ class VetControllerTest {
 
         assertEquals("vets/index", view);
     }
+
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-@Profile({"default", "map"})
+@Profile({ "default", "map" })
 public class PetTypeMapService extends AbstractMapService<PetType, Long> implements PetTypeService {
 
     @Override
@@ -35,4 +35,5 @@ public class PetTypeMapService extends AbstractMapService<PetType, Long> impleme
     public PetType findById(Long id) {
         return super.findById(id);
     }
+
 }

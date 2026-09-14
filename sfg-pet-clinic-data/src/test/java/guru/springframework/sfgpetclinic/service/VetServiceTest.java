@@ -33,23 +33,16 @@ class VetServiceTest {
 
         @BeforeEach
         void setUp() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             Speciality savedSpeciality = specialityService.save(speciality);
 
-            Vet vet1 = Vet.builder()
-                .specialities(new java.util.HashSet<>(Set.of(savedSpeciality)))
-                .build();
+            Vet vet1 = Vet.builder().specialities(new java.util.HashSet<>(Set.of(savedSpeciality))).build();
             vet1.setFirstName("John");
             vet1.setLastName("Mustermann");
 
             vetService.save(vet1);
 
-            Vet vet2 = Vet.builder()
-                .specialities(new java.util.HashSet<>(Set.of(speciality)))
-                .build();
+            Vet vet2 = Vet.builder().specialities(new java.util.HashSet<>(Set.of(speciality))).build();
             vet2.setFirstName("Erika");
             vet2.setLastName("Musterfrau");
 
@@ -68,6 +61,7 @@ class VetServiceTest {
         @EnableJpaRepositories(basePackages = "guru.springframework.sfgpetclinic.repository")
         @EntityScan(basePackages = "guru.springframework.sfgpetclinic.model")
         static class TestConfig {
+
         }
 
         @Test
@@ -86,15 +80,10 @@ class VetServiceTest {
 
         @Test
         void save() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             Speciality savedSpeciality = specialityService.save(speciality);
 
-            Vet vet = Vet.builder()
-                .specialities(new java.util.HashSet<>(Set.of(savedSpeciality)))
-                .build();
+            Vet vet = Vet.builder().specialities(new java.util.HashSet<>(Set.of(savedSpeciality))).build();
             vet.setFirstName("John");
             vet.setLastName("Mustermann");
 
@@ -105,15 +94,10 @@ class VetServiceTest {
 
         @Test
         void delete() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             Speciality savedSpeciality = specialityService.save(speciality);
 
-            Vet vet = Vet.builder()
-                .specialities(new java.util.HashSet<>(Set.of(savedSpeciality)))
-                .build();
+            Vet vet = Vet.builder().specialities(new java.util.HashSet<>(Set.of(savedSpeciality))).build();
             vet.setFirstName("John");
             vet.setLastName("Mustermann");
 
@@ -127,15 +111,10 @@ class VetServiceTest {
 
         @Test
         void deleteById() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             Speciality savedSpeciality = specialityService.save(speciality);
 
-            Vet vet = Vet.builder()
-                .specialities(new java.util.HashSet<>(Set.of(savedSpeciality)))
-                .build();
+            Vet vet = Vet.builder().specialities(new java.util.HashSet<>(Set.of(savedSpeciality))).build();
             vet.setFirstName("John");
             vet.setLastName("Mustermann");
 
@@ -146,25 +125,23 @@ class VetServiceTest {
             Vet foundVet = vetService.findById(savedVet.getId());
             assertNull(foundVet);
         }
+
     }
 
     @Nested
     @ActiveProfiles("springdatajpa")
-    @SpringBootTest(
-        classes = AbstractVetServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractVetServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class VetJpaServiceTest extends AbstractVetServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
-    @SpringBootTest(
-        classes = AbstractVetServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractVetServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class VetMapServiceTest extends AbstractVetServiceTest {
 
     }
+
 }
