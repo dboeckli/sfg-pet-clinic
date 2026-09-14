@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This project is a modern implementation of the classic Spring Pet Clinic application, developed using Spring Boot 3 and Java 21. It demonstrates best practices in Java development and cloud-native deployments. The application is built with a microservice architecture, utilizing Spring Data JPA for data persistence, Spring MVC for the web interface, and Lombok for reducing boilerplate code.
+This project is a modern implementation of the classic Spring Pet Clinic application, developed using Spring Boot 4 and Java 25. It demonstrates best practices in Java development and cloud-native deployments. The application is built with a modular multi-module architecture, utilizing Spring Data JPA for data persistence, Spring MVC for the web interface, and Lombok for reducing boilerplate code.
 
 Key Features:
 - Full Docker container support
@@ -11,6 +11,90 @@ Key Features:
 - Modern web interface using Bootstrap 5
 - CI/CD pipeline via GitHub Actions
 - Modular structure separating data and web components
+
+## Architecture Overview
+
+```mermaid
+graph LR
+    Browser(["💻 Browser"])
+    Prometheus(["📈 Prometheus"])
+
+    subgraph Web ["sfg-pet-clinic-web"]
+        MVC["Spring MVC\nThymeleaf UI\n:8080"]
+        Actuator["Spring Boot\nActuator"]
+    end
+
+    subgraph Data ["sfg-pet-clinic-data"]
+        Service["Service Layer\n(map / spring-data-jpa)"]
+        Repo["Spring Data JPA\nRepositories"]
+    end
+
+    subgraph Databases ["Database"]
+        H2[("H2\nIn-Memory")]
+    end
+
+    Browser <-->|"HTTP"| MVC
+    MVC --> Service
+    Service --> Repo
+    Repo <--> H2
+    Actuator -->|"scrape\n/actuator/prometheus"| Prometheus
+```
+
+## Domain Model
+
+```mermaid
+erDiagram
+    owner {
+        BIGINT id PK
+        VARCHAR first_name
+        VARCHAR last_name
+        VARCHAR address
+        VARCHAR city
+        VARCHAR telephone
+    }
+
+    pet {
+        BIGINT id PK
+        VARCHAR name
+        DATE    birth_date
+        BIGINT  type_id FK
+        BIGINT  owner_id FK
+    }
+
+    pet_type {
+        BIGINT id PK
+        VARCHAR name
+    }
+
+    visit {
+        BIGINT id PK
+        DATE    date
+        VARCHAR description
+        BIGINT  pet_id FK
+    }
+
+    vet {
+        BIGINT id PK
+        VARCHAR first_name
+        VARCHAR last_name
+    }
+
+    speciality {
+        BIGINT id PK
+        VARCHAR description
+    }
+
+    vet_specialities {
+        BIGINT vet_id FK
+        BIGINT speciality_id FK
+    }
+
+    owner ||--o{ pet : "owns"
+    pet_type ||--o{ pet : "typed as"
+    pet ||--o{ visit : "has"
+    vet ||--o{ vet_specialities : "has"
+    speciality ||--o{ vet_specialities : "assigned"
+```
 
 ## Access
 
@@ -23,15 +107,6 @@ Based on: https://github.com/spring-projects/spring-petclinic.git
 The sandbox is provisioned by the [opencode-sandbox-kit](https://github.com/dboeckli/opencode-sandbox-kit)
 and runs as a Docker container (MicroVM). It mounts this repo, starts the agent, and connects the
 IntelliJ MCP server.
-
-### Prerequisites (host, once)
-
-```powershell
-sbx settings set kit.allowedSources --% "[\"docker.io/\",\"github.com/dboeckli/\"]"
-sbx mcp add idea --url http://localhost:64615/stream --skip-ssrf-check
-sbx secret set github
-sbx secret set github-maven
-```
 
 ### Start the sandbox (OpenCode)
 
@@ -133,7 +208,7 @@ kubectl get endpoints -n sfg-pet-clinic-web
 status
 
 ```powershell
-helm status $APPLICATION_NAME --namespace sfg-pet-clinic
+helm status $APPLICATION_NAME --namespace sfg-pet-clinic-web
 ```
 
 test
@@ -157,7 +232,7 @@ kubectl delete all --all -n sfg-pet-clinic-web
 create busybox sidecar
 
 ```powershell
-kubectl run busybox-test --rm -it --image=busybox:1.36 --namespace=sfg-pet-clinic --command -- sh
+kubectl run busybox-test --rm -it --image=busybox:1.36 --namespace=sfg-pet-clinic-web --command -- sh
 ```
 
 You can use the actuator rest call to verify via port 30080
