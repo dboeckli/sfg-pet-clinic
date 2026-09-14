@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Service
 @Profile("springdatajpa")
-public class VisitSpringDataJpaService implements VisitService  {
+public class VisitSpringDataJpaService implements VisitService {
 
     private final VisitRepository visitRepository;
 
@@ -45,4 +45,5 @@ public class VisitSpringDataJpaService implements VisitService  {
     public void deleteById(Long id) {
         visitRepository.deleteById(id);
     }
+
 }

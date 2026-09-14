@@ -63,20 +63,19 @@ jobs:
           DOCKER_USER: ${{ vars.DOCKER_USER }}
           APPLICATION_NAME: ${{ inputs.application-name }}
         run: |
-          echo "Pulling Helm Chart Version: $HELM_CHART_VERSION"
-          helm pull oci://registry-1.docker.io/$DOCKER_USER/$APPLICATION_NAME --version "$HELM_CHART_VERSION"
+          echo "Pulling Helm Chart Version: $HELM_CHART_VERSION from oci://registry-1.docker.io/$DOCKER_USER/$APPLICATION_NAME-chart"
+          helm pull oci://registry-1.docker.io/$DOCKER_USER/$APPLICATION_NAME-chart --version "$HELM_CHART_VERSION"
           tar -xvf $APPLICATION_NAME-*.tgz  
 
       - name: Deploy application with Helm
         env:
           NAMESPACE: ${{ inputs.namespace }}
           APPLICATION_NAME: ${{ inputs.application-name }}
-          APP_VERSION: ${{ inputs.version }}
+          APP_VERSION: ${{ inputs.helm-chart-version }}
         run: |
           # Install/upgrade the Helm chart
           echo "Deploying Application: $APP_VERSION"
-          helm upgrade --install $APPLICATION_NAME ./$APPLICATION_NAME \
-          --set image.tag=${APP_VERSION} \
+          helm upgrade --install $APPLICATION_NAME ./$APPLICATION_NAME-chart \
           --namespace ${NAMESPACE} \
           --create-namespace \
           --wait --timeout 5m \
@@ -88,7 +87,7 @@ jobs:
           APPLICATION_NAME: ${{ inputs.application-name }}
           DEPLOYED_BY_WORKFLOW: ${{ inputs.deployed-by-workflow }}
           DEPLOYED_BY_BUILD: ${{ inputs.deployed-by-build }}
-          VERSION: ${{ inputs.version }}
+          VERSION: ${{ inputs.helm-chart-version }}
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
@@ -105,7 +104,7 @@ jobs:
 
       - name: Test Application
         env:
-          APP_VERSION: ${{ inputs.version }}
+          APP_VERSION: ${{ inputs.helm-chart-version }}
           APPLICATION_NAME: ${{ inputs.application-name }}
           NAMESPACE: ${{ inputs.namespace }}
         run: |

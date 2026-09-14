@@ -29,16 +29,10 @@ class SpecialityServiceTest {
 
         @BeforeEach
         void setUp() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             specialityService.save(speciality);
 
-            Speciality speciality2 = Speciality
-                .builder()
-                .description("something else")
-                .build();
+            Speciality speciality2 = Speciality.builder().description("something else").build();
             specialityService.save(speciality2);
 
         }
@@ -54,6 +48,7 @@ class SpecialityServiceTest {
         @EnableJpaRepositories(basePackages = "guru.springframework.sfgpetclinic.repository")
         @EntityScan(basePackages = "guru.springframework.sfgpetclinic.model")
         static class TestConfig {
+
         }
 
         @Test
@@ -72,10 +67,7 @@ class SpecialityServiceTest {
 
         @Test
         void save() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             Speciality savedSpeciality = specialityService.save(speciality);
 
             assertNotNull(savedSpeciality);
@@ -83,10 +75,7 @@ class SpecialityServiceTest {
 
         @Test
         void delete() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             Speciality savedSpeciality = specialityService.save(speciality);
 
             specialityService.delete(savedSpeciality);
@@ -97,10 +86,7 @@ class SpecialityServiceTest {
 
         @Test
         void deleteById() {
-            Speciality speciality = Speciality
-                .builder()
-                .description("something")
-                .build();
+            Speciality speciality = Speciality.builder().description("something").build();
             Speciality savedSpeciality = specialityService.save(speciality);
 
             specialityService.deleteById(savedSpeciality.getId());
@@ -113,20 +99,16 @@ class SpecialityServiceTest {
 
     @Nested
     @ActiveProfiles("springdatajpa")
-    @SpringBootTest(
-        classes = AbstractSpecialityServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractSpecialityServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class VetJpaServiceTest extends AbstractSpecialityServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
-    @SpringBootTest(
-        classes = AbstractSpecialityServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractSpecialityServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class VetMapServiceTest extends AbstractSpecialityServiceTest {
 
     }

@@ -23,6 +23,7 @@ class OwnerRepositoryTest {
         @EnableJpaRepositories(basePackages = "guru.springframework.sfgpetclinic.repository")
         @EntityScan(basePackages = "guru.springframework.sfgpetclinic.model")
         static class TestConfig {
+
         }
 
         @Test
@@ -41,12 +42,13 @@ class OwnerRepositoryTest {
             assertNotNull(foundOwner);
             assertEquals("Max", foundOwner.getFirstName());
         }
+
     }
 
     @Nested
     @ActiveProfiles("springdatajpa")
     @DataJpaTest
-    @ContextConfiguration(classes = {AbstractOwnerRepositoryTest.TestConfig.class})
+    @ContextConfiguration(classes = { AbstractOwnerRepositoryTest.TestConfig.class })
     class JpaTest extends AbstractOwnerRepositoryTest {
 
     }
@@ -54,8 +56,9 @@ class OwnerRepositoryTest {
     @Nested
     @ActiveProfiles("map")
     @DataJpaTest
-    @ContextConfiguration(classes = {AbstractOwnerRepositoryTest.TestConfig.class})
+    @ContextConfiguration(classes = { AbstractOwnerRepositoryTest.TestConfig.class })
     class MapTest extends AbstractOwnerRepositoryTest {
 
     }
+
 }

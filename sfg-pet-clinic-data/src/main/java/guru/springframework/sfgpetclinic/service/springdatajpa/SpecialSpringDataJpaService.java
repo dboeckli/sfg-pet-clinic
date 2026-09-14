@@ -45,4 +45,5 @@ public class SpecialSpringDataJpaService implements SpecialityService {
     public void deleteById(Long id) {
         specialityRepository.deleteById(id);
     }
+
 }

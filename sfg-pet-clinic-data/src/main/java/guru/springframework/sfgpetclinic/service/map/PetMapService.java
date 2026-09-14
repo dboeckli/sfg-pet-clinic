@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-@Profile({"default", "map"})
+@Profile({ "default", "map" })
 public class PetMapService extends AbstractMapService<Pet, Long> implements PetService {
 
     @Override
@@ -35,4 +35,5 @@ public class PetMapService extends AbstractMapService<Pet, Long> implements PetS
     public void deleteById(Long id) {
         super.deleteById(id);
     }
+
 }

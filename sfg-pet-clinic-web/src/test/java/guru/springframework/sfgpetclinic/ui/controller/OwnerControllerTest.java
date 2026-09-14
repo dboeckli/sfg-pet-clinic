@@ -38,4 +38,5 @@ class OwnerControllerTest {
         String view = ownerController.findOwners();
         assertEquals("notimplemented", view);
     }
+
 }

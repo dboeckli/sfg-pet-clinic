@@ -26,6 +26,7 @@ class PetServiceTest {
 
     @Slf4j
     abstract static class AbstractPetServiceTest {
+
         @Autowired
         PetService petService;
 
@@ -56,9 +57,7 @@ class PetServiceTest {
             Owner savedOwner1 = ownerService.save(owner1);
             Owner savedOwner2 = ownerService.save(owner2);
 
-            PetType petType = PetType.builder()
-                .name("animal")
-                .build();
+            PetType petType = PetType.builder().name("animal").build();
             PetType savedPetType = petTypeService.save(petType);
 
             Pet pet1 = Pet.builder()
@@ -77,7 +76,6 @@ class PetServiceTest {
 
             petService.save(pet1);
             petService.save(pet2);
-
 
         }
 
@@ -112,9 +110,7 @@ class PetServiceTest {
                 .build();
             Owner savedOwner3 = ownerService.save(owner3);
 
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
 
             Pet pet3 = Pet.builder()
@@ -139,9 +135,7 @@ class PetServiceTest {
                 .build();
             Owner savedOwner3 = ownerService.save(owner3);
 
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
 
             Pet pet3 = Pet.builder()
@@ -171,9 +165,7 @@ class PetServiceTest {
                 .build();
             Owner savedOwner3 = ownerService.save(owner3);
 
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
 
             Pet pet3 = Pet.builder()
@@ -198,26 +190,23 @@ class PetServiceTest {
         @EnableJpaRepositories(basePackages = "guru.springframework.sfgpetclinic.repository")
         @EntityScan(basePackages = "guru.springframework.sfgpetclinic.model")
         static class TestConfig {
-        }
-    }
 
+        }
+
+    }
 
     @Nested
     @ActiveProfiles("springdatajpa")
-    @SpringBootTest(
-        classes = AbstractPetServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractPetServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class PetJpaServiceTest extends AbstractPetServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
-    @SpringBootTest(
-        classes = AbstractPetServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractPetServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class PetMapServiceTest extends AbstractPetServiceTest {
 
     }

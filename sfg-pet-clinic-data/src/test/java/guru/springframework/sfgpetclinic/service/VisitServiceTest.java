@@ -61,9 +61,7 @@ class VisitServiceTest {
             Owner savedOwner1 = ownerService.save(owner1);
             Owner savedOwner2 = ownerService.save(owner2);
 
-            PetType petType = PetType.builder()
-                .name("animal")
-                .build();
+            PetType petType = PetType.builder().name("animal").build();
             PetType savedPetType = petTypeService.save(petType);
 
             Pet pet1 = Pet.builder()
@@ -83,20 +81,10 @@ class VisitServiceTest {
             petService.save(pet1);
             petService.save(pet2);
 
-            Visit visit1 = Visit
-                .builder()
-                .description("something")
-                .date(LocalDate.now())
-                .pet(pet1)
-                .build();
+            Visit visit1 = Visit.builder().description("something").date(LocalDate.now()).pet(pet1).build();
             visitService.save(visit1);
 
-            Visit visit2 = Visit
-                .builder()
-                .description("something2")
-                .date(LocalDate.now())
-                .pet(pet2)
-                .build();
+            Visit visit2 = Visit.builder().description("something2").date(LocalDate.now()).pet(pet2).build();
             visitService.save(visit2);
         }
 
@@ -111,6 +99,7 @@ class VisitServiceTest {
         @EnableJpaRepositories(basePackages = "guru.springframework.sfgpetclinic.repository")
         @EntityScan(basePackages = "guru.springframework.sfgpetclinic.model")
         static class TestConfig {
+
         }
 
         @Test
@@ -139,9 +128,7 @@ class VisitServiceTest {
                 .build();
             Owner savedOwner3 = ownerService.save(owner3);
 
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
 
             Pet pet3 = Pet.builder()
@@ -153,12 +140,7 @@ class VisitServiceTest {
 
             Pet savedPet = petService.save(pet3);
 
-            Visit visit1 = Visit
-                .builder()
-                .description("something")
-                .date(LocalDate.now())
-                .pet(savedPet)
-                .build();
+            Visit visit1 = Visit.builder().description("something").date(LocalDate.now()).pet(savedPet).build();
             Visit savedVisit = visitService.save(visit1);
             assertNotNull(savedVisit);
         }
@@ -174,9 +156,7 @@ class VisitServiceTest {
                 .build();
             Owner savedOwner3 = ownerService.save(owner3);
 
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
 
             Pet pet3 = Pet.builder()
@@ -189,12 +169,7 @@ class VisitServiceTest {
             Pet savedPet = petService.save(pet3);
             assertNotNull(savedPet);
 
-            Visit visit1 = Visit
-                .builder()
-                .description("something")
-                .date(LocalDate.now())
-                .pet(savedPet)
-                .build();
+            Visit visit1 = Visit.builder().description("something").date(LocalDate.now()).pet(savedPet).build();
             Visit savedVisit = visitService.save(visit1);
 
             visitService.delete(savedVisit);
@@ -214,9 +189,7 @@ class VisitServiceTest {
                 .build();
             Owner savedOwner3 = ownerService.save(owner3);
 
-            PetType petType3 = PetType.builder()
-                .name("animal3")
-                .build();
+            PetType petType3 = PetType.builder().name("animal3").build();
             PetType savedPetType = petTypeService.save(petType3);
 
             Pet pet3 = Pet.builder()
@@ -229,12 +202,7 @@ class VisitServiceTest {
             Pet savedPet = petService.save(pet3);
             assertNotNull(savedPet);
 
-            Visit visit1 = Visit
-                .builder()
-                .description("something")
-                .date(LocalDate.now())
-                .pet(savedPet)
-                .build();
+            Visit visit1 = Visit.builder().description("something").date(LocalDate.now()).pet(savedPet).build();
             Visit savedVisit = visitService.save(visit1);
 
             visitService.deleteById(savedVisit.getId());
@@ -247,20 +215,16 @@ class VisitServiceTest {
 
     @Nested
     @ActiveProfiles("springdatajpa")
-    @SpringBootTest(
-        classes = AbstractVisitServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractVisitServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class VisitJpaServiceTest extends AbstractVisitServiceTest {
 
     }
 
     @Nested
     @ActiveProfiles("map")
-    @SpringBootTest(
-        classes = AbstractVisitServiceTest.TestConfig.class,
-        properties = "spring.main.allow-bean-definition-overriding=true"
-    )
+    @SpringBootTest(classes = AbstractVisitServiceTest.TestConfig.class,
+            properties = "spring.main.allow-bean-definition-overriding=true")
     class VisitMapServiceTest extends AbstractVisitServiceTest {
 
     }
