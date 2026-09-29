@@ -104,7 +104,7 @@ Based on: https://github.com/spring-projects/spring-petclinic.git
 
 ## Sandbox (local dev environment)
 
-The sandbox is provisioned by the [opencode-sandbox-kit](https://github.com/dboeckli/opencode-sandbox-kit)
+The sandbox is provisioned by the [opencode-sandbox-kit](https://codeberg.org/dboeckli/opencode-sandbox-kit)
 and runs as a Docker container (MicroVM). It mounts this repo, starts the agent, and connects the
 IntelliJ MCP server.
 
