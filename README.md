@@ -111,50 +111,12 @@ IntelliJ MCP server.
 ### Start the sandbox (OpenCode)
 
 ```powershell
-sbx run opencode `
-    --kit "git+https://codeberg.org/dboeckli/opencode-sandbox-kit.git#dir=opencode-agent" `
-    --template docker.cloudsmith.io/dboeckli/sbx/sbx-opencode-tooling:latest `
+sbx run docker.io/domboeckli/sbx-opencode:latest `
     --skills=off `
-    --static-mcp idea `
+    --static-mcp idea,k8s,docker `
     . `
-    "$env:USERPROFILE\.kube:ro" `
     "C:\development\maven-repo:ro"
 ```
-
-Claude Code:
-
-```powershell
-sbx run claude `
-    --kit "git+https://codeberg.org/dboeckli/opencode-sandbox-kit.git#dir=opencode-agent" `
-    --template docker.cloudsmith.io/dboeckli/sbx/sbx-claude-tooling:latest `
-    --skills=off `
-    --static-mcp idea `
-    . `
-    "$env:USERPROFILE\.kube:ro" `
-    "C:\development\maven-repo:ro"
-```
-
-Mammouth Code:
-
-```powershell
-sbx run "git+https://codeberg.org/dboeckli/opencode-sandbox-kit.git#dir=mammouth-agent" `
-    --kit-arg imageTag=latest `
-    --skills=off `
-    --static-mcp idea `
-    . `
-    "$env:USERPROFILE\.kube:ro" `
-    "C:\development\maven-repo:ro"
-```
-
-- `"$env:USERPROFILE\.kube:ro"` — optional Kubernetes support (kubectl/helm in the Docker Desktop cluster)
-- `"C:\development\maven-repo:ro"` — read-only host Maven cache (avoids re-downloading cached dependencies)
-
-### Sandbox quirk
-
-The sandbox mounts the repo via filesystem passthrough, which blocks symlinks — Spotless's
-`npm install` (prettier) fails with `EPERM` unless npm skips bin links. The kit sets
-`npm_config_bin_links=false` globally, so no manual export is needed inside the kit sandbox. On a
-normal host (Windows/CI) this does not apply.
 
 ## Deployment with Helm
 
