@@ -2,16 +2,16 @@ package guru.springframework.sfgpetclinic.service;
 
 import java.util.Set;
 
-public interface CrudService<T, ID> {
+public interface CrudService<T, K> {
 
     Set<T> findAll();
 
-    T findById(ID id);
+    T findById(K id);
 
     T save(T object);
 
     void delete(T object);
 
-    void deleteById(ID id);
+    void deleteById(K id);
 
 }

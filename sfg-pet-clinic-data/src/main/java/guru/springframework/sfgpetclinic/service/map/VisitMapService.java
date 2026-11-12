@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Service
 @Profile({ "default", "map" })
-public class VisitMapService extends AbstractMapService<Visit, Long> implements VisitService {
+public class VisitMapService extends AbstractMapService<Visit> implements VisitService {
 
     @Override
     public Set<Visit> findAll() {
@@ -31,7 +31,7 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
         if (visit.getPet() == null || visit.getPet().getOwner() == null || visit.getPet().getId() == null
                 || visit.getPet().getOwner().getId() == null) {
 
-            throw new RuntimeException("Invalid Visit");
+            throw new IllegalArgumentException("Invalid Visit");
 
         }
         return super.save(visit);
