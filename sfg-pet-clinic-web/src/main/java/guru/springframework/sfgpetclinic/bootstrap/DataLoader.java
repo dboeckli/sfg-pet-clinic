@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Component
 @Slf4j
@@ -20,15 +21,12 @@ public class DataLoader implements CommandLineRunner {
 
     private final SpecialityService specialityService;
 
-    private final VisitService visitService;
-
     public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
-            SpecialityService specialityService, VisitService visitService) {
+            SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
-        this.visitService = visitService;
     }
 
     @Override
@@ -73,7 +71,7 @@ public class DataLoader implements CommandLineRunner {
 
         Pet roscoePet = new Pet();
         roscoePet.setName("Rosoe");
-        roscoePet.setBirthDate(LocalDate.now());
+        roscoePet.setBirthDate(LocalDate.now(ZoneId.systemDefault()));
         roscoePet.setOwner(owner1);
         roscoePet.setPetType(savedDog);
         owner1.getPets().add(roscoePet);
@@ -90,12 +88,12 @@ public class DataLoader implements CommandLineRunner {
 
         Visit catVisit = new Visit();
         catVisit.setPet(roscoePet);
-        catVisit.setDate(LocalDate.now());
+        catVisit.setDate(LocalDate.now(ZoneId.systemDefault()));
         catVisit.setDescription("nice pussy");
 
         Pet fionaPet = new Pet();
         fionaPet.setName("Fiona");
-        fionaPet.setBirthDate(LocalDate.now());
+        fionaPet.setBirthDate(LocalDate.now(ZoneId.systemDefault()));
         fionaPet.setOwner(ruedi);
         fionaPet.setPetType(savedCat);
         ruedi.getPets().add(fionaPet);
