@@ -208,7 +208,7 @@
                 <artifactItem>
                   <groupId>org.webjars.npm</groupId>
                   <artifactId>bootstrap</artifactId>
-                  <version>${webjars-bootstrap.version}</version>
+                  <version>${webjars-npm-bootstrap.version}</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${project.build.directory}/webjars</outputDirectory>
@@ -224,7 +224,7 @@
         <configuration>
           <inputPath>${basedir}/src/main/scss/</inputPath>
           <outputPath>${basedir}/src/main/resources/static/resources/css/</outputPath>
-          <includePath>${project.build.directory}/webjars/META-INF/resources/webjars/bootstrap/${webjars-bootstrap.version}/scss/</includePath>
+          <includePath>${project.build.directory}/webjars/META-INF/resources/webjars/bootstrap/${webjars-npm-bootstrap.version}/scss/</includePath>
         </configuration>
         <executions>
           <execution>

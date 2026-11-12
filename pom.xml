@@ -57,6 +57,7 @@
     <libsass.version>0.3.4</libsass.version>
     <webjars-bootstrap.version>5.3.8</webjars-bootstrap.version>
     <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
+    <webjars-npm-bootstrap.version>5.3.9</webjars-npm-bootstrap.version>
     <webjars-npm-minimatch.version>10.2.6</webjars-npm-minimatch.version>
 
     <properties-maven-plugin.version>1.4.0</properties-maven-plugin.version>
