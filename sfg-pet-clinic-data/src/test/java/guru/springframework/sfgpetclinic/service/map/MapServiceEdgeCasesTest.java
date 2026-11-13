@@ -44,8 +44,9 @@ class MapServiceEdgeCasesTest {
     @Test
     void visitWithoutPetThrows() {
         VisitMapService service = new VisitMapService();
+        Visit visit = new Visit();
 
-        assertThrows(IllegalArgumentException.class, () -> service.save(new Visit()));
+        assertThrows(IllegalArgumentException.class, () -> service.save(visit));
     }
 
     @Test
